@@ -1,0 +1,31 @@
+name: test-workflow
+
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+  DAY_OF_WEEK: Monday
+
+jobs:
+  job-1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: step-1
+        uses: actions/checkout@v3 # GitHub が提供しているアクション「checkout」のバージョン3
+
+      - name: step-2
+        run: echo "this is job-1."
+
+  job-2:
+    runs-on: ubuntu-latest
+    env:
+      HELLO: hello!!
+    steps:
+      - name: step-1
+        env:
+          NAME: Taro
+        run: |
+          echo "$HELLO $NAME."
+          echo "Today is $DAY_OF_WEEK!"
