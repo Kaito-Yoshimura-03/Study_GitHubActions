@@ -1,0 +1,10 @@
+name: workflow-a
+on:
+  workflow_dispatch:
+jobs:
+  kick-workflow-b:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/workflows/workflow-b.yml
+        with:
+          env: dev

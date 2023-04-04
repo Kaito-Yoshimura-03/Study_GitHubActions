@@ -1,0 +1,15 @@
+name: workflow-manual
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        required: true
+        type: choice
+        options:
+          - dev
+          - prod
+jobs:
+  echo-env:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "env = ${{ github.event.inputs.env }}"
