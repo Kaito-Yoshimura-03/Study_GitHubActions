@@ -4,7 +4,6 @@ on:
 jobs:
   kick-workflow-b:
     runs-on: ubuntu-latest
-    steps:
-      - uses: .github/workflows/workflow-b.yml
-        with:
-          env: dev
+    uses: .github/workflows/workflow-b.yml
+    with:
+      env: dev
