@@ -2,21 +2,26 @@ name: job-dependencies
 on:
   workflow_dispatch:
 jobs:
-  first-job:
+  job1-1:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "first-job finished."
-  second-job:
-    needs: first-job
+      - run: echo "job1-1 finished."
+  job1-2:
+    needs: job1-1
     runs-on: ubuntu-latest
     steps:
-      - run: echo "second-job finished."
-  third-job:
-    needs: [ first-job, second-job ]
+      - run: echo "job1-2 finished."
+  job1-3:
+    needs: job1-2
     runs-on: ubuntu-latest
     steps:
-      - run: echo "third-job finished."
-  job:
+      - run: echo "job1-3 finished."
+  job2-1:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "job finished."
+      - run: echo "job2-1 finished."
+  job2-2:
+    needs: [ job1-2, job2-1 ]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "job2-2 finished."
