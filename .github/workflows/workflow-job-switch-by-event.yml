@@ -5,7 +5,7 @@ on:
   schedule:
     - cron: '0 21 * * *'
   pull_request:
-    - type: [opened, closed]
+    types: [opened, closed]
 jobs:
   run-only-workflow-dispatch:
     if: ${{ github.event_name == 'workflow_dispatch' }}
