@@ -1,0 +1,12 @@
+name: workflow-b
+on:
+  workflow_call:
+    inputs:
+      env:
+        required: true
+        type: string
+jobs:
+  echo-env:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "env = ${{ inputs.env }}"
