@@ -10,6 +10,6 @@ on:
           - prod
 jobs:
   kick-workflow-b:
-    uses: .github/workflows/workflow-b.yml
+    uses: ./.github/workflows/workflow-b.yml@main
     with:
       env: ${{ github.event.inputs.env }}
