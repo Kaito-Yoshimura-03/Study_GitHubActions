@@ -5,18 +5,18 @@ jobs:
   first-job:
     runs-on: ubuntu-latest
     steps:
-      - echo "first-job finished."
+      - run: echo "first-job finished."
   second-job:
     needs: first-job
     runs-on: ubuntu-latest
     steps:
-      - echo "second-job finished."
+      - run: echo "second-job finished."
   third-job:
     needs: [ first-job, second-job ]
     runs-on: ubuntu-latest
     steps:
-      - echo "third-job finished."
+      - run: echo "third-job finished."
   job:
     runs-on:
     steps:
-      - echo "job finished."
+      - run: echo "job finished."

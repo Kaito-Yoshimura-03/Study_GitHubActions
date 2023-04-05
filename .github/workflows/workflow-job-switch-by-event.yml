@@ -11,18 +11,16 @@ jobs:
     if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
-      - run: echo "this job was kicked by ${{ github.event_name }}."
-  run-only-workflow-call:
-    if: ${{ github.event_name == 'workflow_call' }}
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "this job was kicked by ${{ github.event_name }}."
+      - run: |
+          if [ ${{ github.base_ref }} == 'main' ] && [ ${{ github.head_ref }} == 'create-sample-workflows' ]; then
+            echo "compound condition"
+          fi
   run-only-pr:
     if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     steps:
       - name: step-1
-        if: ${{ github.event.pull_request.type == 'closed' }}
+        if: ${{ github.event.pull_request.merged == true }}
         run: |
           if [ ${{ github.event.pull_request.merged }} == 'true' ]; then
             echo "This PR is merged."
@@ -30,8 +28,10 @@ jobs:
             echo "This PR is not merged."
           fi
       - name: step-2
-        if: ${{ github.event.pull_request.type != 'closed' }}
+        if: ${{ github.event.pull_request.merged == false }}
         run: |
-          if [ ${{ github.base_ref }} == 'main' ] && [ ${{ github.event.pull_request.merged }} == 'false' ]; then
-            echo "compound condition"
+          if [ ${{ github.event.pull_request.merged }} == 'true' ]; then
+            echo "This PR is merged."
+          else
+            echo "This PR is not merged."
           fi
