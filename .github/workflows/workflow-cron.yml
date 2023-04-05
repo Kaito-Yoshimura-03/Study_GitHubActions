@@ -1,7 +1,7 @@
 name: workflow-cron
 on:
   schedule:
-    - cron: '0 12 * * *'
+    - cron: '30 3 * * *'
 jobs:
   echo-current-datetime:
     runs-on: ubuntu-latest
