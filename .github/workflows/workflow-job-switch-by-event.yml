@@ -1,0 +1,37 @@
+name: workflow-job-switch-by-event
+on:
+  workflow_dispatch:
+  workflow_call:
+  schedule:
+    - cron: '0 21 * * *'
+  pull_request:
+    - type: [opened, closed]
+jobs:
+  run-only-workflow-dispatch:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "this job was kicked by ${{ github.event_name }}."
+  run-only-workflow-call:
+    if: ${{ github.event_name == 'workflow_call' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "this job was kicked by ${{ github.event_name }}."
+  run-only-pr:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: step-1
+        if: ${{ github.event.pull_request.type == 'closed' }}
+        run: |
+          if [ ${{ github.event.pull_request.merged }} == 'true' ]; then
+            echo "This PR is merged."
+          else
+            echo "This PR is not merged."
+          fi
+      - name: step-2
+        if: ${{ github.event.pull_request.type != 'closed' }}
+        run: |
+          if [ ${{ github.base_ref }} == 'main' ] && [ ${{ github.event.pull_request.merged }} == 'false' ]; then
+            echo "compound condition"
+          fi
