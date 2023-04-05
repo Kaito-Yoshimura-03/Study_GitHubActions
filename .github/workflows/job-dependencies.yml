@@ -17,6 +17,6 @@ jobs:
     steps:
       - run: echo "third-job finished."
   job:
-    runs-on:
+    runs-on: ubuntu-latest
     steps:
       - run: echo "job finished."
