@@ -1,8 +1,15 @@
 name: workflow-a
 on:
   workflow_dispatch:
+    inputs:
+      env:
+        required: true
+        type: choice
+        options:
+          - dev
+          - prod
 jobs:
   kick-workflow-b:
-    uses: .github/workflows/workflow-b.yml@main
+    uses: ./.github/workflows/workflow-b.yml
     with:
-      env: dev
+      env: ${{ github.event.inputs.env }}
