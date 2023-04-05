@@ -1,9 +1,6 @@
 name: workflow-job-switch-by-event
 on:
   workflow_dispatch:
-  workflow_call:
-  schedule:
-    - cron: '0 21 * * *'
   pull_request:
     types: [opened, closed]
 jobs:
@@ -12,7 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          if [ ${{ github.base_ref }} == 'main' ] && [ ${{ github.head_ref }} == 'create-sample-workflows' ]; then
+          value1=1
+          value2=2
+          if [ $value1 == 1 ] && [ $value2 == 2 ]; then
             echo "compound condition"
           fi
   run-only-pr:
