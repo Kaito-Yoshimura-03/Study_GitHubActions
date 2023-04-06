@@ -5,8 +5,9 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.step1.outputs.test }}
-      output2: ${{ steps.step2.outputs.test }}
+      output1: ${{ steps.step1.outputs.output1 }}
+      output2: ${{ steps.step2.outputs.output2 }}
+      output2: ${{ steps.step2.outputs.output3 }}
     steps:
       - id: step1
         run: echo "output1=hello" >> $GITHUB_OUTPUT
