@@ -120,7 +120,7 @@
 
 - 説明  
   テンプレートで使用している属性の説明は下で表にしてます。  
-  上記ワークフローは、"main" ブランチへのPR作成時によりトリガーされ、job1とjob2をそれぞれ "Ubuntu" 上で実行します。  
+  上記ワークフローは、"main" ブランチへのPR作成によりトリガーされ、job1とjob2をそれぞれ "Ubuntu" 上で実行します。  
 
   "job1" では "step1" を実行した後に "step2" が実行されます。"step1" では、GitHub が提供しているアクション「checkout」のバージョン3を実行し、Ubuntu上にリポジトリのクローンを作成します。"step2" では、文字列を出力するシェルを実行します。  
 
@@ -268,7 +268,7 @@
 ### ジョブの依存関係(前提条件)を設定する
 - ポイント  
   - ジョブ定義時に `needs` 属性を指定すると、指定したジョブの完了を前提条件に設定できる。  
-    ※ただし、実行結果(成功・失敗・スキップ等)は問わない。実行結果によって切り替える場合はもうひと手間必要で、「[ワークフローのトリガーによってジョブを切り替える](#ワークフローのトリガーによってジョブを切り替える)」で少し触れます。  
+    ※ただし、実行結果(成功・失敗・スキップ等)は問わない。実行結果によって切り替える場合はもうひと手間必要で、「[ジョブ・ステップで条件分岐](#ジョブステップで条件分岐)」で少し触れます。  
 
    定義例  
   ```yml
@@ -403,23 +403,14 @@
 - 複合条件の書き方で色々と地雷を踏んでしまった。  
   ```yml
   # (正)
-  ${{ github.event.pull_request.merged == true || github.event.xx == 'true' }} # ${{}} は省略可
+  ${{ github.event.pull_request.merged == true || github.event.xx == true }} # ${{}} は省略可
 
   # (誤1)
-  ${{github.event.pull_request.merged == true || github.event.xx == 'true'}} # ${{ の後ろと }} の前に半角スペースが必要
+  ${{github.event.pull_request.merged == true || github.event.xx == true}} # ${{ の後ろと }} の前に半角スペースが必要
 
   # (誤2)
-  ${{ github.event.pull_request.merged == true }} || ${{ github.event.xx == 'true' }}
+  ${{ github.event.pull_request.merged == true }} || ${{ github.event.xx == 'true' }} # ${{}} の中に複合条件を書く‼
 
   # (誤3)
-  ${{ github.event.pull_request.merged }} == true || ${{ github.event.xx }} == 'true' # シェルを参考に書いてしまった
-  ```
-
-- アクションの出力で得た 'true/false' がboolean型想定だったが、string型であったため、条件分岐が上手く動かなかった。  
-  ```yml
-  # (正)
-  ${{ github.event.pull_request.merged == true || github.event.xx == 'true' }} # ${{}} は省略可
-
-  # (誤)
-  ${{github.event.pull_request.merged == true || github.event.xx == true}} # ${{ の後ろと }} の前に半角スペースが必要
+  ${{ github.event.pull_request.merged }} == true || ${{ github.event.xx }} == 'true' # 誤2と同じ感じ。シェルを参考に書いた。
   ```
