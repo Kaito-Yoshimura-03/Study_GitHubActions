@@ -18,4 +18,5 @@ jobs:
       - name: Run script
         run: |
           cd ./script
+          chmod +x test.sh
           ./test.sh
