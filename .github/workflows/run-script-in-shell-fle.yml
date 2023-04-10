@@ -1,0 +1,21 @@
+name: run-script-in-shell-file
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        required: true
+        type: choice
+        options:
+          - dev
+          - prod
+jobs:
+  run-test-sh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run script
+        run: |
+          cd ./script
+          ./test.sh
