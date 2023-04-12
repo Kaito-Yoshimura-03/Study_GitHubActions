@@ -20,13 +20,13 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: test-a
-        if: ${{ github.event_name == 'workflow_dispatch' }} && ${{ github.event.pull_request.merged == false }}
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.pull_request.merged == false }}
         run: echo Hello, world!
 
       - name: test-b
-        if: ${{ github.event_name == 'workflow_dispatch' }} && ${{ github.event.pull_request.merged == true }}
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.pull_request.merged == true }}
         run: echo Hello, world!
 
       - name: test-c
-        if: ${{ github.event_name == 'workflow_dispatch' }} || ${{ github.event.pull_request.merged == false }}
+        if: ${{ github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == false }}
         run: echo Hello, world!
