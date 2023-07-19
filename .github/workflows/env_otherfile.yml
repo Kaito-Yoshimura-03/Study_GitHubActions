@@ -26,7 +26,7 @@ jobs:
           STAGE=${{ inputs.stage }}
 
           # variables.tfから選択されたステージの変数を読み込む
-          VARIABLES=$(cat ./.github/variables/variables.yml | yq read - "$STAGE" )
+          VARIABLES=$(cat ./.github/variables/variables.yml | yq read - "$STAGE" | awk 'BEGIN{FS=": "}{print $1"="$2}')
           echo "$VARIABLES"
 
           # 環境変数に変数を設定
