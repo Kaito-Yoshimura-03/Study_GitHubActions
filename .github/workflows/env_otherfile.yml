@@ -15,10 +15,10 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
-      - name: install yq
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y yq
+      # - name: install yq
+      #   run: |
+      #     sudo apt-get update -y
+      #     sudo apt-get install -y yq
 
       - name: set up variables
         run: |
@@ -26,7 +26,7 @@ jobs:
           STAGE=${{ inputs.stage }}
 
           # variables.tfから選択されたステージの変数を読み込む
-          VARIABLES=$(cat ./.github/variables/variables.yml | yq -r ".$STAGE | to_entries[] | .key + \"=\" + .value")
+          VARIABLES=$(yq eval ".$STAGE | to_entries[] | .key + \"=\" + .value" ./.github/variables/variables.yml)
 
           # 環境変数に変数を設定
           echo "$VARIABLES" >> $GITHUB_ENV
