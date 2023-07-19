@@ -22,11 +22,8 @@ jobs:
 
       - name: set up variables
         run: |
-          # インプットからステージを取得
-          STAGE=${{ inputs.stage }}
-
           # variables.tfから選択されたステージの変数を読み込む
-          VARIABLES=$(yq read -P ./.github/variables/variables.yml .$STAGE)
+          VARIABLES=$(yq read -P ./.github/variables/variables.yml .dev)
           echo "$VARIABLES"
 
           # 環境変数に変数を設定
