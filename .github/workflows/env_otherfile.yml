@@ -1,0 +1,43 @@
+name: workflow-env-otherfile
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        required: true
+        type: choice
+        options:
+          - dev
+          - stg
+jobs:
+  set-variables:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: set up variables
+        run: |
+          # インプットからステージを取得
+          STAGE=${{ inputs.stage }}
+
+          # variables.tfから選択されたステージの変数を読み込む
+          VARIABLES=$(cat ./variables/variables.yml | yq -r ".$STAGE | to_entries[] | .key + \"=\" + .value")
+
+          # 環境変数に変数を設定
+          echo "$VARIABLES" >> $GITHUB_ENV
+
+      - name: display variables
+        run: |
+          echo "HOST_ZONE_ID        = $HOST_ZONE_ID"
+          echo "ALB_RECORD_NAME     = $ALB_RECORD_NAME"
+          echo "ALB_HOST_ZONE_ID    = $ALB_HOST_ZONE_ID"
+          echo "ALB_DNS_NAME        = $ALB_DNS_NAME"
+          echo "NLB_RECORD_NAME     = $NLB_RECORD_NAME"
+          echo "NLB_HOST_ZONE_ID    = $NLB_HOST_ZONE_ID"
+          echo "NLB_DNS_NAME        = $NLB_DNS_NAME"
+          echo "ALB_DR_RECORD_NAME  = $ALB_DR_RECORD_NAME"
+          echo "ALB_DR_HOST_ZONE_ID = $ALB_DR_HOST_ZONE_ID"
+          echo "ALB_DR_DNS_NAME     = $ALB_DR_DNS_NAME"
+          echo "NLB_DR_RECORD_NAME  = $NLB_DR_RECORD_NAME"
+          echo "NLB_DR_HOST_ZONE_ID = $NLB_DR_HOST_ZONE_ID"
+          echo "NLB_DR_DNS_NAME     = $NLB_DR_DNS_NAME"

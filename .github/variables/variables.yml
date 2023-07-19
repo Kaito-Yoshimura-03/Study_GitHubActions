@@ -1,0 +1,36 @@
+dev:
+  HOST_ZONE_ID: Z1234567890
+  ALB:
+    RECORD_NAME: xxxxxx1-dev.example.com
+    HOST_ZONE_ID: Z1212121212
+    DNS_NAME: xxxxxx1-dev.elb.amazonaws.com
+  NLB:
+    RECORD_NAME: xxxxxx2-dev.example.com
+    HOST_ZONE_ID: Z1212121212
+    DNS_NAME: xxxxxx2-dev.elb.amazonaws.com
+  ALB_DR:
+    RECORD_NAME: xxxxxx3-dev.example.com
+    HOST_ZONE_ID: Z1212121212
+    DNS_NAME: xxxxxx3-dev.elb.amazonaws.com
+  NLB_DR:
+    RECORD_NAME: xxxxxx4-dev.example.com
+    HOST_ZONE_ID: Z1212121212
+    DNS_NAME: xxxxxx4-dev.elb.amazonaws.com
+stg:
+  HOST_ZONE_ID: Z0987654321
+  ALB:
+    RECORD_NAME: xxxxxx1-stg.example.com
+    HOST_ZONE_ID: Z0909090909
+    DNS_NAME: xxxxxx1-stg.elb.amazonaws.com
+  NLB:
+    RECORD_NAME: xxxxxx2-stg.example.com
+    HOST_ZONE_ID: Z0909090909
+    DNS_NAME: xxxxxx2-stg.elb.amazonaws.com
+  ALB_DR:
+    RECORD_NAME: xxxxxx3-stg.example.com
+    HOST_ZONE_ID: Z0909090909
+    DNS_NAME: xxxxxx3-stg.elb.amazonaws.com
+  NLB_DR:
+    RECORD_NAME: xxxxxx4-stg.example.com
+    HOST_ZONE_ID: Z0909090909
+    DNS_NAME: xxxxxx4-stg.elb.amazonaws.com
