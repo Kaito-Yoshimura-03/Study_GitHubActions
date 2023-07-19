@@ -23,7 +23,7 @@ jobs:
       - name: set up variables
         run: |
           # variables.tfから選択されたステージの変数を読み込む
-          VARIABLES=$(cat ./.github/variables/variables.yml | yq .dev)
+          VARIABLES=$(cat ./.github/variables/variables.yml | yq read dev)
           echo "$VARIABLES"
 
           # 環境変数に変数を設定
