@@ -26,7 +26,7 @@ jobs:
           STAGE=${{ inputs.stage }}
 
           # variables.tfから選択されたステージの変数を読み込む
-          VARIABLES=$(yq eval ".$STAGE | to_entries[] | .key + \"=\" + .value" ./.github/variables/variables.yml)
+          VARIABLES=$(yq -r ".$STAGE | to_entries[] | .key + \"=\" + .value" ./.github/variables/variables.yml)
 
           # 環境変数に変数を設定
           echo "$VARIABLES" >> $GITHUB_ENV
