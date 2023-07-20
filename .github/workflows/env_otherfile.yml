@@ -33,6 +33,9 @@ jobs:
           # 環境変数に変数を設定
           echo "$VARIABLES" >> $GITHUB_ENV
 
+          # 別の名前の環境変数としてさらに追加
+          echo "TEST=$HOST_ZONE_ID" >> $GITHUB_ENV
+
       - name: display variables
         run: |
           echo "HOST_ZONE_ID        = $HOST_ZONE_ID"
@@ -48,3 +51,11 @@ jobs:
           echo "NLB_DR_RECORD_NAME  = $NLB_DR_RECORD_NAME"
           echo "NLB_DR_HOST_ZONE_ID = $NLB_DR_HOST_ZONE_ID"
           echo "NLB_DR_DNS_NAME     = $NLB_DR_DNS_NAME"
+          echo "TEST                = $TEST"
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: display variables
+        run: |
+          echo "HOST_ZONE_ID        = $HOST_ZONE_ID"
+          echo "TEST                = $TEST"
