@@ -34,7 +34,7 @@ jobs:
           echo "$VARIABLES" >> $GITHUB_ENV
 
           # 別の名前の環境変数としてさらに追加
-          echo "TEST = $HOST_ZONE_ID" >> $GITHUB_ENV
+          echo "TEST=$HOST_ZONE_ID" >> $GITHUB_ENV
           source $GITHUB_ENV
 
       - name: display variables
