@@ -1,0 +1,61 @@
+name: value-pass-from-job-to-job
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        required: true
+        type: choice
+        options:
+          - dev
+          - stg
+jobs:
+  set-variables:
+    runs-on: ubuntu-latest
+    outputs:
+      host_zone_id: ${{ steps.set-value.outputs.host_zone_id }}
+      alb_record_name: ${{ steps.set-value.outputs.alb_record_name }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: install yq
+        run: |
+          wget https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 -O /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
+
+      - name: get variables
+        id: get-value
+        run: |
+          # variables.tfから選択されたステージの変数を読み込む
+          VARIABLES=$(
+            cat ./.github/variables/variables.yml |
+            yq read - "${{ inputs.stage }}" |
+            awk 'BEGIN{FS=": "}{print $1"="$2}'
+          )
+          echo "$VARIABLES"
+
+          # 環境変数に格納
+          echo "$VARIABLES" >> "$GITHUB_ENV"
+      - name: set variables
+        id: set-value
+        run: |
+          # outputに格納
+          echo "host_zone_id=$HOST_ZONE_ID" >> "$GITHUB_OUTPUT"
+          echo "alb_record_name=$ALB_RECORD_NAME" >> "$GITHUB_OUTPUT"
+
+  echo-from-nextjob:
+    runs-on: ubuntu-latest
+    needs: set-variables
+    env:
+      HOST_ZONE_ID: ${{ needs.set-variables.outputs.host_zone_id }}
+    steps:
+      - name: display variables
+        run: |
+          echo "HOST_ZONE_ID = $HOST_ZONE_ID"
+
+  echo-from-other-workflow:
+    runs-on: ubuntu-latest
+    needs: set-variables
+    uses: ./.github/workflows/workflow-b.yml
+    with:
+      env: ${{ needs.set-variables.outputs.host_zone_id }}
