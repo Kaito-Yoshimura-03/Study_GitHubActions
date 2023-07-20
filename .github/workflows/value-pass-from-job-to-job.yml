@@ -54,7 +54,6 @@ jobs:
           echo "HOST_ZONE_ID = $HOST_ZONE_ID"
 
   echo-from-other-workflow:
-    runs-on: ubuntu-latest
     needs: set-variables
     uses: ./.github/workflows/workflow-b.yml
     with:
