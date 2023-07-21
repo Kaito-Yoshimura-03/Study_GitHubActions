@@ -24,8 +24,9 @@ jobs:
         run: |
           # variables.tfから選択されたステージの変数を読み込む
           VARIABLES=$(
-            cat ./.github/variables/variables.yml |
-            yq read - "${{ inputs.stage }}" |
+            # cat ./.github/variables/variables.yml |
+            cat ./.github/variables/${{ inputs.stage }}.yml |
+            # yq read - "${{ inputs.stage }}" |
             awk 'BEGIN{FS=": "}{print $1"="$2}'
           )
           echo "$VARIABLES"

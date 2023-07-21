@@ -1,0 +1,13 @@
+HOST_ZONE_ID: Z1234567890
+ALB_RECORD_NAME: xxxxxx1-dev.example.com
+ALB_HOST_ZONE_ID: Z1212121212
+ALB_DNS_NAME: xxxxxx1-dev.elb.amazonaws.com
+NLB_RECORD_NAME: xxxxxx2-dev.example.com
+NLB_HOST_ZONE_ID: Z1212121212
+NLB_DNS_NAME: xxxxxx2-dev.elb.amazonaws.com
+ALB_DR_RECORD_NAME: xxxxxx3-dev.example.com
+ALB_DR_HOST_ZONE_ID: Z1212121212
+ALB_DR_DNS_NAME: xxxxxx3-dev.elb.amazonaws.com
+NLB_DR_RECORD_NAME: xxxxxx4-dev.example.com
+NLB_DR_HOST_ZONE_ID: Z1212121212
+NLB_DR_DNS_NAME: xxxxxx4-dev.elb.amazonaws.com
