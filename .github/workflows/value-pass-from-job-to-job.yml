@@ -59,3 +59,19 @@ jobs:
     uses: ./.github/workflows/workflow-b.yml
     with:
       env: ${{ needs.set-variables.outputs.host_zone_id }}
+
+  check-able-to-withinputs-over-10:
+    needs: set-variables
+    uses: ./.github/workflows/workflow-test-20230724.yaml
+    with:
+      input1: ${{ needs.set-variables.outputs.host_zone_id }}
+      input2: ${{ needs.set-variables.outputs.host_zone_id }}
+      input3: ${{ needs.set-variables.outputs.host_zone_id }}
+      input4: ${{ needs.set-variables.outputs.host_zone_id }}
+      input5: ${{ needs.set-variables.outputs.host_zone_id }}
+      input6: ${{ needs.set-variables.outputs.host_zone_id }}
+      input7: ${{ needs.set-variables.outputs.host_zone_id }}
+      input8: ${{ needs.set-variables.outputs.host_zone_id }}
+      input9: ${{ needs.set-variables.outputs.host_zone_id }}
+      input10: ${{ needs.set-variables.outputs.host_zone_id }}
+      input11: ${{ needs.set-variables.outputs.host_zone_id }}

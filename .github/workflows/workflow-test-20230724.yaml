@@ -1,0 +1,53 @@
+name: workflow-test-20230724
+on:
+  workflow_call:
+    inputs:
+      input1:
+        required: true
+        type: string
+      input2:
+        required: true
+        type: string
+      input3:
+        required: true
+        type: string
+      input4:
+        required: true
+        type: string
+      input5:
+        required: true
+        type: string
+      input6:
+        required: true
+        type: string
+      input7:
+        required: true
+        type: string
+      input8:
+        required: true
+        type: string
+      input9:
+        required: true
+        type: string
+      input10:
+        required: true
+        type: string
+      input11:
+        required: true
+        type: string
+
+jobs:
+  echo-inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "input1 = ${{ inputs.input1 }}"
+      - run: echo "input2 = ${{ inputs.input2 }}"
+      - run: echo "input3 = ${{ inputs.input3 }}"
+      - run: echo "input4 = ${{ inputs.input4 }}"
+      - run: echo "input5 = ${{ inputs.input5 }}"
+      - run: echo "input6 = ${{ inputs.input6 }}"
+      - run: echo "input7 = ${{ inputs.input7 }}"
+      - run: echo "input8 = ${{ inputs.input8 }}"
+      - run: echo "input9 = ${{ inputs.input9 }}"
+      - run: echo "input10 = ${{ inputs.input10 }}"
+      - run: echo "input11 = ${{ inputs.input11 }}"
