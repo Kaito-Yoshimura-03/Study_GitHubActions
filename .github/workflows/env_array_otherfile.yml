@@ -31,8 +31,7 @@ jobs:
 
           NUM=$(
             cat ./.github/variables/variables-array.yml |
-            yq read - "SERVICE_LIST" |
-            length
+            yq read - "SERVICE_LIST | length"
           )
 
           for i in $(seq 0 $(($num-1))); do
