@@ -23,27 +23,15 @@ jobs:
       - name: set up and display variables
         run: |
           CLUSTER_NAME=$(
-            cat ./.github/variables/variables-array.yml |
-            yq read - "CLUSTER_NAME" |
-            awk 'BEGIN{FS=": "}{print $1"="$2}'
+            yq ".CLUSTER_NAME" ./.github/variables/variables-array.yml |
           )
           echo "CLUSTER_NAME=$CLUSTER_NAME"
 
-          NUM=$(
-            cat ./.github/variables/variables-array.yml |
-            yq read - "SERVICE_LIST" |
-            yq length
-          )
+          NUM=$(yq ".SERVICE_LIST | length" ./.github/variables/variables-array.yml)
           echo "NUM=$NUM"
 
           for i in $(seq 0 $(($NUM-1))); do
-            SERVICE_NAME=$(
-              cat ./.github/variables/variables-array.yml |
-              yq read - "SERVICE_LIST.[$i].SERVICE_NAME"
-            )
-            TASK_COUNT=$(
-              cat ./.github/variables/variables-array.yml |
-              yq read - "SERVICE_LIST.[$i].TASK_COUNT"
-            )
+            SERVICE_NAME=$(yq ".SERVICE_LIST.[$i].SERVICE_NAME" ./.github/variables/variables-array.yml)
+            TASK_COUNT=$(yq ".SERVICE_LIST.[$i].TASK_COUNT" ./.github/variables/variables-array.yml)
             echo "SERVICE_NAME=$SERVICE_NAME, TASK_COUNT=$TASK_COUNT"
           done
