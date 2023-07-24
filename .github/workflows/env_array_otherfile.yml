@@ -31,7 +31,8 @@ jobs:
 
           NUM=$(
             cat ./.github/variables/variables-array.yml |
-            yq read - "SERVICE_LIST | length"
+            yq read - "SERVICE_LIST" |
+            yq length
           )
           echo "NUM=$NUM"
 
