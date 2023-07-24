@@ -35,19 +35,60 @@ on:
       input11:
         required: true
         type: string
+      input12:
+        required: true
+        type: string
+      input13:
+        required: true
+        type: string
+      input14:
+        required: true
+        type: string
+      input15:
+        required: true
+        type: string
+      input16:
+        required: true
+        type: string
+      input17:
+        required: true
+        type: string
+      input18:
+        required: true
+        type: string
+      input19:
+        required: true
+        type: string
+      input20:
+        required: true
+        type: string
+      input21:
+        required: true
+        type: string
 
 jobs:
   echo-inputs:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "input1 = ${{ inputs.input1 }}"
-      - run: echo "input2 = ${{ inputs.input2 }}"
-      - run: echo "input3 = ${{ inputs.input3 }}"
-      - run: echo "input4 = ${{ inputs.input4 }}"
-      - run: echo "input5 = ${{ inputs.input5 }}"
-      - run: echo "input6 = ${{ inputs.input6 }}"
-      - run: echo "input7 = ${{ inputs.input7 }}"
-      - run: echo "input8 = ${{ inputs.input8 }}"
-      - run: echo "input9 = ${{ inputs.input9 }}"
-      - run: echo "input10 = ${{ inputs.input10 }}"
-      - run: echo "input11 = ${{ inputs.input11 }}"
+      - run: |
+        echo "input1 = ${{ inputs.input1 }}"
+        echo "input2 = ${{ inputs.input2 }}"
+        echo "input3 = ${{ inputs.input3 }}"
+        echo "input4 = ${{ inputs.input4 }}"
+        echo "input5 = ${{ inputs.input5 }}"
+        echo "input6 = ${{ inputs.input6 }}"
+        echo "input7 = ${{ inputs.input7 }}"
+        echo "input8 = ${{ inputs.input8 }}"
+        echo "input9 = ${{ inputs.input9 }}"
+        echo "input10 = ${{ inputs.input10 }}"
+        echo "input11 = ${{ inputs.input11 }}"
+        echo "input12 = ${{ inputs.input12 }}"
+        echo "input13 = ${{ inputs.input13 }}"
+        echo "input14 = ${{ inputs.input14 }}"
+        echo "input15 = ${{ inputs.input15 }}"
+        echo "input16 = ${{ inputs.input16 }}"
+        echo "input17 = ${{ inputs.input17 }}"
+        echo "input18 = ${{ inputs.input18 }}"
+        echo "input19 = ${{ inputs.input19 }}"
+        echo "input20 = ${{ inputs.input20 }}"
+        echo "input21 = ${{ inputs.input21 }}"

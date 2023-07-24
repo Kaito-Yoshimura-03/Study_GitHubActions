@@ -75,3 +75,13 @@ jobs:
       input9: ${{ needs.set-variables.outputs.host_zone_id }}
       input10: ${{ needs.set-variables.outputs.host_zone_id }}
       input11: ${{ needs.set-variables.outputs.host_zone_id }}
+      input12: ${{ needs.set-variables.outputs.host_zone_id }}
+      input13: ${{ needs.set-variables.outputs.host_zone_id }}
+      input14: ${{ needs.set-variables.outputs.host_zone_id }}
+      input15: ${{ needs.set-variables.outputs.host_zone_id }}
+      input16: ${{ needs.set-variables.outputs.host_zone_id }}
+      input17: ${{ needs.set-variables.outputs.host_zone_id }}
+      input18: ${{ needs.set-variables.outputs.host_zone_id }}
+      input19: ${{ needs.set-variables.outputs.host_zone_id }}
+      input20: ${{ needs.set-variables.outputs.host_zone_id }}
+      input21: ${{ needs.set-variables.outputs.host_zone_id }}
