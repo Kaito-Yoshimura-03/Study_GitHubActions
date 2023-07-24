@@ -22,9 +22,7 @@ jobs:
 
       - name: set up and display variables
         run: |
-          CLUSTER_NAME=$(
-            yq ".CLUSTER_NAME" ./.github/variables/variables-array.yml |
-          )
+          CLUSTER_NAME=$(yq ".CLUSTER_NAME" ./.github/variables/variables-array.yml)
           echo "CLUSTER_NAME=$CLUSTER_NAME"
 
           NUM=$(yq ".SERVICE_LIST | length" ./.github/variables/variables-array.yml)
