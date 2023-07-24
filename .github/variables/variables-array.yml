@@ -1,0 +1,12 @@
+CLUSTER_NAME: example-cluster-dev
+SERVICE_LIST:
+  - SERVICE_NAME: example-service-1
+    TASK_COUNT: 1
+  - SERVICE_NAME: example-service-2
+    TASK_COUNT: 2
+  - SERVICE_NAME: example-service-3
+    TASK_COUNT: 3
+  - SERVICE_NAME: example-service-4
+    TASK_COUNT: 1
+  - SERVICE_NAME: example-service-5
+    TASK_COUNT: 2

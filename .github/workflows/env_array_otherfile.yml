@@ -1,0 +1,48 @@
+name: workflow-env-array-otherfile
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        required: true
+        type: choice
+        options:
+          - dev
+          - stg
+jobs:
+  set-variables:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: install yq
+        run: |
+          wget https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 -O /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
+
+      - name: set up and display variables
+        run: |
+          CLUSTER_NAME=$(
+            cat ./.github/variables/variables-array.yml |
+            yq read - "CLUSTER_NAME" |
+            awk 'BEGIN{FS=": "}{print $1"="$2}'
+          )
+          echo "CLUSTER_NAME=$CLUSTER_NAME"
+
+          NUM=$(
+            cat ./.github/variables/variables-array.yml |
+            yq read - "SERVICE_LIST" |
+            length
+          )
+
+          for i in $(seq 0 $(($num-1))); do
+            SERVICE_NAME=$(
+              cat ./.github/variables/variables-array.yml |
+              yq read - "SERVICE_LIST.[$i].SERVICE_NAME"
+            )
+            TASK_COUNT=$(
+              cat ./.github/variables/variables-array.yml |
+              yq read - "SERVICE_LIST.[$i].TASK_COUNT"
+            )
+            echo "SERVICE_NAME=$SERVICE_NAME, TASK_COUNT=$TASK_COUNT"
+          done
