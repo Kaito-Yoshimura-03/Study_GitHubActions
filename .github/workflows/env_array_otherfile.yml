@@ -28,7 +28,7 @@ jobs:
           NUM=$(yq ".SERVICE_LIST | length" ./.github/variables/variables-array.yml)
           echo "NUM=$NUM"
 
-          for i in $(seq 0 $($NUM-1)); do
+          for i in $(seq 0 $(($NUM-1))); do
             SERVICE_NAME=$(yq ".SERVICE_LIST.[$i].SERVICE_NAME" ./.github/variables/variables-array.yml)
             TASK_COUNT=$(yq ".SERVICE_LIST.[$i].TASK_COUNT" ./.github/variables/variables-array.yml)
             echo "SERVICE_NAME=$SERVICE_NAME, TASK_COUNT=$TASK_COUNT"
