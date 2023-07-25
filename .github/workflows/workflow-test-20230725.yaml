@@ -1,0 +1,38 @@
+name: workflow-env-otherfile
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        required: true
+        type: choice
+        options:
+          - dev
+          - stg
+jobs:
+  set-variables:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: install yq
+        run: |
+          wget https://github.com/mikefarah/yq/releases/download/v4.34.1/yq_linux_amd64 -O /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
+
+      - name: set up variables
+        run: |
+          # variables.tfから選択されたステージの変数を読み込む
+          VARIABLES=$(
+            yq ".SERVICE_LIST.[$0]" ./.github/variables/variables-array.yml |
+            awk 'BEGIN{FS=": "}{print $1"="$2}'
+          )
+          echo "$VARIABLES"
+
+          # 環境変数に変数を設定
+          echo "$VARIABLES" >> $GITHUB_ENV
+
+      - name: display variables
+        run: |
+          echo "SERVICE_NAME = $SERVICE_NAME"
+          echo "TASK_COUNT   = $TASK_COUNT"
