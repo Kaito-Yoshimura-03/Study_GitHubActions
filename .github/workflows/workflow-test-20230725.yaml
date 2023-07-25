@@ -1,4 +1,4 @@
-name: workflow-env-otherfile
+name: workflow-test-20230725
 on:
   workflow_dispatch:
     inputs:
@@ -24,7 +24,7 @@ jobs:
         run: |
           # variables.tfから選択されたステージの変数を読み込む
           VARIABLES=$(
-            yq ".SERVICE_LIST.[$0]" ./.github/variables/variables-array.yml |
+            yq ".SERVICE_LIST.[0]" ./.github/variables/variables-array.yml |
             awk 'BEGIN{FS=": "}{print $1"="$2}'
           )
           echo "$VARIABLES"
