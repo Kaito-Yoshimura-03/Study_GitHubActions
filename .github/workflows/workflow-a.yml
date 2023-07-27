@@ -13,3 +13,4 @@ jobs:
     uses: ./.github/workflows/workflow-b.yml
     with:
       env: ${{ github.event.inputs.env }}
+      pass: ./.github/variables/change-task-count/${{ inputs.env }}.yaml

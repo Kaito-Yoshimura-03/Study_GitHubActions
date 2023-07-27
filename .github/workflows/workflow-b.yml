@@ -5,8 +5,12 @@ on:
       env:
         required: true
         type: string
+      pass:
+        required: true
+        type: string
 jobs:
   echo-env:
     runs-on: ubuntu-latest
     steps:
       - run: echo "env = ${{ inputs.env }}"
+      - run: echo "pass = ${{ inputs.pass }}"
