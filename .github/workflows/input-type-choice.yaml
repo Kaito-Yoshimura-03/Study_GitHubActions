@@ -46,4 +46,5 @@ on:
 jobs:
   nothing-to-do:
     runs-on: ubuntu-latest
-    run: echo "nothing to do..."
+    steps:
+      - run: echo "nothing to do..."
