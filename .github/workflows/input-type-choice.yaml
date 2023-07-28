@@ -1,0 +1,49 @@
+# 確認したいこと
+# - `type: choice` の input に対する `required: true` の有無で何か変わるか
+# - `type: choice` の input に対する `default` の設定有無で何か変わるか
+
+name: input-type-choice
+on:
+  workflow_dispatch:
+    inputs:
+      # required なし
+      env-noreq:
+        type: choice
+        options:
+          - dev
+          - prod
+      # required あり
+      env-req:
+        type: choice
+        options:
+          - dev
+          - prod
+
+      # default なし
+      env-nodef-dev-first:
+        type: choice
+        options:
+          - dev
+          - prod
+      env-nodef-prod-first:
+        type: choice
+        options:
+          - prod
+          - dev
+      # default あり
+      env-def-prod-dev-first:
+        type: choice
+        default: prod
+        options:
+          - dev
+          - prod
+      env-def-dev-dev-first:
+        type: choice
+        default: prod
+        options:
+          - dev
+          - prod
+jobs:
+  nothing-to-do:
+    runs-on: ubuntu-latest
+    run: echo "nothing to do..."
