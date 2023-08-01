@@ -1,0 +1,17 @@
+name: test-20230802
+# デフォルトブランチにないワークフローを呼べるか確認
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        required: true
+        type: choice
+        options:
+          - dev
+          - test
+          - prod
+jobs:
+  kick-other-workflow:
+    uses: ./.github/workflows/reusable-workflow.yaml
+    with:
+      stage: ${{ inputs.stage }}
