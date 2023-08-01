@@ -1,0 +1,17 @@
+name: reusable-workflow
+on:
+  workflow_call:
+    inputs:
+      stage:
+        required: true
+        type: string
+jobs:
+  set-variables:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        # デフォルトブランチに格納したくないファイルを取得する場合withでブランチ指定が必要か確認
+
+      - name: cat
+        run: cat ./.github/variables/${{ inputs.stage }}.yml
