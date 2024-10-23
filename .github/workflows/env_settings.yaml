@@ -1,19 +1,29 @@
 name: workflow-test-1023
 on:
-  pull_request:
-    types: [closed]
-    branches:
-      - deploy/dev
-      - deploy/prod
+  # pull_request:
+  #   types: [closed]
+  #   branches:
+  #     - deploy/dev
+  #     - deploy/prod
+  workflow_dispatch:
+    inputs:
+      base:
+        required: true
+        type: choice
+        options:
+          - deploy/dev
+          - deploy/prod
 
 env:
-  ENVIRONMENT: ${{ github.base_ref == 'deploy/dev' && 'dev' || 'prod' }}
+  # ENVIRONMENT: ${{ github.base_ref == 'deploy/dev' && 'dev' || 'prod' }}
+  ENVIRONMENT: ${{ inputs.base == 'deploy/dev' && 'dev' || 'prod' }}
 
 jobs:
   echo_env:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ env.ENVIRONMENT }}
+      - run: echo $ENVIRONMENT
 
   kick-workflow-b:
     uses: ./.github/workflows/workflow-b.yml
