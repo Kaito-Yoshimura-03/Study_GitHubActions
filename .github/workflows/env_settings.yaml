@@ -14,23 +14,24 @@ on:
           - deploy/dev
           - deploy/prod
 
-env:
+# env:
   # ENVIRONMENT: ${{ github.base_ref == 'deploy/dev' && 'dev' || 'prod' }}
-  ENVIRONMENT: ${{ inputs.base == 'deploy/dev' && 'dev' || 'prod' }}
+  # ENVIRONMENT: ${{ inputs.base == 'deploy/dev' && 'dev' || 'prod' }}
 
 jobs:
-  echo_env:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${{ env.ENVIRONMENT }}
-      - run: echo $ENVIRONMENT
+  # echo_env:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo ${{ env.ENVIRONMENT }}
+  #     - run: echo $ENVIRONMENT
 
   kick-workflow-b:
     uses: ./.github/workflows/workflow-b.yml
     with:
-      env: ${{ github.base_ref == 'deploy/dev' && 'dev' || 'prod' }}
-      pass: "./.github/variables/change-task-count/${ENVIRONMENT}.yaml"
+      env: ${{ env.ENVIRONMENT }}
+      pass: "./.github/variables/change-task-count/${{ env.ENVIRONMENT }}.yaml"
     env:
+      ENVIRONMENT: ${{ inputs.base == 'deploy/dev' && 'dev' || 'prod' }}
 
   # set-environment: OK
   #   runs-on: ubuntu-latest
