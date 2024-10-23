@@ -17,11 +17,9 @@ jobs:
 
   kick-workflow-b:
     uses: ./.github/workflows/workflow-b.yml
-    env:
-      ENVIRONMENT: ${{ env.ENVIRONMENT }}
     with:
       env: $ENVIRONMENT
-      pass: ./.github/variables/change-task-count/$ENVIRONMENT.yaml
+      pass: ./.github/variables/change-task-count/${{ env.ENVIRONMENT }}.yaml
 
   # set-environment: OK
   #   runs-on: ubuntu-latest
