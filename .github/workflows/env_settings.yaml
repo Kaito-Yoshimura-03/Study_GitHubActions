@@ -19,7 +19,7 @@ jobs:
     uses: ./.github/workflows/workflow-b.yml
     with:
       env: $ENVIRONMENT
-      pass: ./.github/variables/change-task-count/${{ env.ENVIRONMENT }}.yaml
+      pass: ./.github/variables/change-task-count/$ENVIRONMENT.yaml
 
   # set-environment: OK
   #   runs-on: ubuntu-latest
