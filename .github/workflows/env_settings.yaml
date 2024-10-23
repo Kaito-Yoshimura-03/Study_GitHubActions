@@ -14,3 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ env.ENVIRONMENT }}
+  kick-workflow-b:
+    uses: ./.github/workflows/workflow-b.yml
+    with:
+      env: ${{ env.ENVIRONMENT }}
+      pass: ./.github/variables/change-task-count/${{ env.ENVIRONMENT }}.yaml
