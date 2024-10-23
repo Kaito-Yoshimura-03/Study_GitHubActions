@@ -1,0 +1,16 @@
+name: workflow-test-1023
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - deploy/dev
+      - deploy/prod
+
+env:
+  ENVIRONMENT: ${{ github.base_ref == 'deploy/dev' && 'dev' || 'prod' }}
+
+jobs:
+  echo env:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ env.ENVIRONMENT }}
