@@ -6,20 +6,38 @@ on:
       - deploy/dev
       - deploy/prod
 
-env:
-  ENVIRONMENT: ${{ github.base_ref == 'deploy/dev' && 'dev' || 'prod' }}
+# env:
+#   ENVIRONMENT: ${{ github.base_ref == 'deploy/dev' && 'dev' || 'prod' }}
 
 jobs:
-  echo_env:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${{ env.ENVIRONMENT }}
-      - run: echo ${{ github.env.ENVIRONMENT }}
+  # echo_env:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo ${{ env.ENVIRONMENT }}
 
-  # kick-workflow-b:
+  # kick-workflow-b: NG:withで渡す値を指定するときにenv使えないらしい
   #   uses: ./.github/workflows/workflow-b.yml
   #   env:
   #     ENVIRONMENT: ${{ env.ENVIRONMENT }}
   #   with:
   #     env: ${{ env.ENVIRONMENT }}
   #     pass: ./.github/variables/change-task-count/${{ env.ENVIRONMENT }}.yaml
+
+  set-environment:
+    runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.set-env.outputs.environment }}
+    steps:
+      - id: set-env
+        run: |
+          if [[ "${{ github.event.pull_request.base.ref }}" == "deploy/dev" ]]; then
+            echo "::set-output name=environment::dev"
+          elif [[ "${{ github.event.pull_request.base.ref }}" == "deploy/prod" ]]; then
+            echo "::set-output name=environment::prod"
+          fi
+  kick-workflow-b:
+    needs: set-environment
+    uses: ./.github/workflows/workflow-b.yml
+    with:
+      env: ${{ needs.set-environment.outputs.environment }}
+      pass: ./.github/variables/change-task-count/${{ needs.set-environment.outputs.environment }}.yaml
