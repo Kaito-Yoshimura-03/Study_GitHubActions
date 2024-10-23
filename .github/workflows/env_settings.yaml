@@ -10,7 +10,7 @@ env:
   ENVIRONMENT: ${{ github.base_ref == 'deploy/dev' && 'dev' || 'prod' }}
 
 jobs:
-  echo env:
+  echo_env:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ env.ENVIRONMENT }}
