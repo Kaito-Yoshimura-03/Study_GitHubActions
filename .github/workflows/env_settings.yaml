@@ -29,7 +29,8 @@ jobs:
     uses: ./.github/workflows/workflow-b.yml
     with:
       env: ${{ github.base_ref == 'deploy/dev' && 'dev' || 'prod' }}
-      pass: ./.github/variables/change-task-count/$ENVIRONMENT.yaml
+      pass: "./.github/variables/change-task-count/${ENVIRONMENT}.yaml"
+    env:
 
   # set-environment: OK
   #   runs-on: ubuntu-latest
