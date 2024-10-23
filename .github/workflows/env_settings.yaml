@@ -18,7 +18,7 @@ jobs:
   kick-workflow-b:
     uses: ./.github/workflows/workflow-b.yml
     with:
-      env: $ENVIRONMENT
+      env: ${{ github.base_ref == 'deploy/dev' && 'dev' || 'prod' }}
       pass: ./.github/variables/change-task-count/$ENVIRONMENT.yaml
 
   # set-environment: OK
