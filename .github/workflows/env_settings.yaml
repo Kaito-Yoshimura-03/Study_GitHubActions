@@ -5,21 +5,51 @@ on:
     branches:
       - deploy/dev
       - deploy/prod
+  # workflow_dispatch:
+  #   inputs:
+  #     base:
+  #       required: true
+  #       type: choice
+  #       options:
+  #         - deploy/dev
+  #         - deploy/prod
 
-env:
-  ENVIRONMENT: ${{ github.base_ref == 'deploy/dev' && 'dev' || 'prod' }}
+# env:
+  # ENVIRONMENT: ${{ github.base_ref == 'deploy/dev' && 'dev' || 'prod' }}
+  # ENVIRONMENT: ${{ inputs.base == 'deploy/dev' && 'dev' || 'prod' }}
 
 jobs:
-  echo_env:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${{ env.ENVIRONMENT }}
-      - run: echo ${{ github.env }}
-      - run: echo ${{ github.event }}
+  # echo_env:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo ${{ env.ENVIRONMENT }}
+  #     - run: echo $ENVIRONMENT
+
   # kick-workflow-b:
   #   uses: ./.github/workflows/workflow-b.yml
-  #   env:
-  #     ENVIRONMENT: ${{ env.ENVIRONMENT }}
   #   with:
-  #     env: ${{ env.ENVIRONMENT }}
-  #     pass: ./.github/variables/change-task-count/${{ env.ENVIRONMENT }}.yaml
+  #     env: $ENVIRONMENT
+  #     pass: "./.github/variables/change-task-count/$ENVIRONMENT.yaml"
+  #   env:
+  #     ENVIRONMENT: ${{ inputs.base == 'deploy/dev' && 'dev' || 'prod' }}
+
+  set-environment:
+    runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.set-env.outputs.environment }}
+    steps:
+      - id: set-env
+        run: |
+          if [[ "${{ github.event.pull_request.base.ref }}" == "deploy/dev" ]]; then
+            echo "environment=dev" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event.pull_request.base.ref }}" == "deploy/prod" ]]; then
+            echo "environment=prod" >> $GITHUB_OUTPUT
+          fi
+      - run: |
+          echo "environment=${{ steps.set-env.outputs.environment }}"
+  kick-workflow-b:
+    needs: set-environment
+    uses: ./.github/workflows/workflow-b.yml
+    with:
+      env: ${{ needs.set-environment.outputs.environment }}
+      pass: ./.github/variables/change-task-count/${{ needs.set-environment.outputs.environment }}.yaml
