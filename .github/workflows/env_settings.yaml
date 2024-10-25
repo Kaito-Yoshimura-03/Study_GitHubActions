@@ -36,19 +36,24 @@ jobs:
   set-environment:
     runs-on: ubuntu-latest
     outputs:
-      environment: ${{ steps.set-env.outputs.environment1 }}
+      # environment: ${{ steps.set-env.outputs.environment }}
+      environment: ${{ env.environment }}
       # environment: "dev" # <-- 値さえ入れられれば、ジョブ間で渡せること確認済み。
     steps:
       - id: set-env
         run: |
           if [[ "${{ github.event.pull_request.base.ref }}" == "deploy/dev" ]]; then
             # echo "::set-output name=environment::dev"
-            echo "environment1=dev" >> $GITHUB_OUTPUT
+            # echo "environment=dev" >> $GITHUB_OUTPUT # 値が入らない
+            echo "environment=dev" >> $GITHUB_ENV
           elif [[ "${{ github.event.pull_request.base.ref }}" == "deploy/prod" ]]; then
             # echo "::set-output name=environment::prod"
-            echo "environment1=prod" >> $GITHUB_OUTPUT
+            # echo "environment=prod" >> $GITHUB_OUTPUT
+            echo "environment=prod" >> $GITHUB_ENV
           fi
-      - run: echo "environment=${{ steps.set-env.outputs.environment1 }}"
+      - run: |
+        # echo "environment=${{ steps.set-env.outputs.environment }}"
+        echo "environment=${{ env.environment }}"
   kick-workflow-b:
     needs: set-environment
     uses: ./.github/workflows/workflow-b.yml
