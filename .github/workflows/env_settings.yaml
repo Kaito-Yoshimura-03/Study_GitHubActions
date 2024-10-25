@@ -52,8 +52,8 @@ jobs:
             echo "environment=prod" >> $GITHUB_ENV
           fi
       - run: |
-        # echo "environment=${{ steps.set-env.outputs.environment }}"
-        echo "environment=${{ env.environment }}"
+          # echo "environment=${{ steps.set-env.outputs.environment }}"
+          echo "environment=${{ env.environment }}"
   kick-workflow-b:
     needs: set-environment
     uses: ./.github/workflows/workflow-b.yml
