@@ -25,29 +25,31 @@ jobs:
   #     - run: echo ${{ env.ENVIRONMENT }}
   #     - run: echo $ENVIRONMENT
 
-  kick-workflow-b:
-    uses: ./.github/workflows/workflow-b.yml
-    with:
-      env: $ENVIRONMENT
-      pass: "./.github/variables/change-task-count/$ENVIRONMENT.yaml"
-    env:
-      ENVIRONMENT: ${{ inputs.base == 'deploy/dev' && 'dev' || 'prod' }}
-
-  # set-environment: OK
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     environment: ${{ steps.set-env.outputs.environment }}
-  #   steps:
-  #     - id: set-env
-  #       run: |
-  #         if [[ "${{ github.event.pull_request.base.ref }}" == "deploy/dev" ]]; then
-  #           echo "::set-output name=environment::dev"
-  #         elif [[ "${{ github.event.pull_request.base.ref }}" == "deploy/prod" ]]; then
-  #           echo "::set-output name=environment::prod"
-  #         fi
   # kick-workflow-b:
-  #   needs: set-environment
   #   uses: ./.github/workflows/workflow-b.yml
   #   with:
-  #     env: ${{ needs.set-environment.outputs.environment }}
-  #     pass: ./.github/variables/change-task-count/${{ needs.set-environment.outputs.environment }}.yaml
+  #     env: $ENVIRONMENT
+  #     pass: "./.github/variables/change-task-count/$ENVIRONMENT.yaml"
+  #   env:
+  #     ENVIRONMENT: ${{ inputs.base == 'deploy/dev' && 'dev' || 'prod' }}
+
+  set-environment:
+    runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.set-env.outputs.environment }}
+    steps:
+      - id: set-env
+        run: |
+          if [[ "${{ github.event.pull_request.base.ref }}" == "deploy/dev" ]]; then
+            # echo "::set-output name=environment::dev"
+            echo "environment=dev" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event.pull_request.base.ref }}" == "deploy/prod" ]]; then
+            # echo "::set-output name=environment::prod"
+            echo "environment=prod" >> $GITHUB_OUTPUT
+          fi
+  kick-workflow-b:
+    needs: set-environment
+    uses: ./.github/workflows/workflow-b.yml
+    with:
+      env: ${{ needs.set-environment.outputs.environment }}
+      pass: ./.github/variables/change-task-count/${{ needs.set-environment.outputs.environment }}.yaml
