@@ -1,0 +1,15 @@
+name: test-20250205-called
+# workflow_call イベントでトリガーしたワークフローはどのブランチ上のワークフロー定義を使う？main？feature？
+
+on:
+  workflow_call:
+    inputs:
+      branch:
+        required: true
+        type: string
+jobs:
+  echo-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "env = ${{ inputs.branch }}"
+      - run: echo "this workflow definition is on main branch"
