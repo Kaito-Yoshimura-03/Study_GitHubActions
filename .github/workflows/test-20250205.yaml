@@ -1,5 +1,6 @@
 name: test-20250205
 # pull_request イベントでトリガーしたワークフローはどのブランチ上のワークフロー定義を使う？main？feature？
+# workflow_call イベントでトリガーしたワークフローはどのブランチ上のワークフロー定義を使う？main？feature？
 
 on:
   pull_request:

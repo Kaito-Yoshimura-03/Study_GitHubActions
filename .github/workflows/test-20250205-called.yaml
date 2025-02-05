@@ -11,5 +11,5 @@ jobs:
   echo-branch:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "env = ${{ inputs.branch }}"
+      - run: echo "branch = ${{ inputs.branch }}"
       - run: echo "this workflow definition is on main branch"
