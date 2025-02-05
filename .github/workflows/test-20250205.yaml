@@ -9,8 +9,9 @@ jobs:
   echo:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "this workflow definition is on main branch"
+      # - run: echo "this workflow definition is on main branch"
+      - run: echo "this workflow definition is on feature branch"
   kick-workflow-b:
     uses: ./.github/workflows/test-20250205-called.yaml
     with:
-      branch: main
+      branch: feature
