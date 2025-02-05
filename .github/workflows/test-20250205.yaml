@@ -1,0 +1,11 @@
+name: test-20250205
+# pull_request イベントでトリガーしたワークフローはどのブランチ上のワークフロー定義を使う？main？feature？
+
+on:
+  pull_request:
+    types: [opened, closed]
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "this workflow definition is on main branch"
